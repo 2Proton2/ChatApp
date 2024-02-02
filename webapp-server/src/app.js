@@ -3,6 +3,7 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import userRoutes from "./routes/user.route.js";
 
 const app = express();
 const httpServer = createServer(app);
@@ -35,6 +36,9 @@ app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(express.static("public"));
 app.use(cookieParser());
+
+//routes middleware
+app.use("/api/user", userRoutes);
 
 export {
     httpServer
