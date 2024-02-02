@@ -44,3 +44,15 @@ export const userRegistration = asyncHandler(async (req, res) => {
         throw new ApiError(400, "User not found", [])
     }
 });
+
+export const fetchSearchedUser = asyncHandler(async (req, res) => {
+    const keyword = req.query.search ? {
+        $or : [
+          {name: {$regex: req.query.search, $options: 'i'}},
+          {email: {$regex: req.query.search, $options: 'i'}}
+        ]
+      } : {};
+
+      const users = await User.find(keyword).find({_id: {$ne : req.user.id}});
+      res.send(new ApiResponse(200, users, "Details Fetched Successfully"))
+});
