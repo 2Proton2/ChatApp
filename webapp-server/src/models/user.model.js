@@ -44,8 +44,8 @@ userSchema.pre("save", async function (next) {
     this.password = await bcrypt.hash(this.password, salt);
 });
 
-userSchema.methods.generateAccessToken = function () {
-    return jwt.sign(
+userSchema.methods.generateAccessToken = async function (id) {
+    return await jwt.sign(
         { id },
         process.env.ACCESS_TOKEN_SECRET,
         { expiresIn: process.env.ACCESS_TOKEN_EXPIRY }
