@@ -4,6 +4,7 @@ import { Server } from "socket.io";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import userRoutes from "./routes/user.route.js";
+import { errorHandler } from "./middleware/error.middleware.js";
 
 const app = express();
 const httpServer = createServer(app);
@@ -40,6 +41,8 @@ app.use(cookieParser());
 //routes middleware
 app.use("/api/user", userRoutes);
 
+// common error handling middleware
+app.use(errorHandler);
 export {
     httpServer
 };
