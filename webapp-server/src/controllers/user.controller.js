@@ -7,7 +7,7 @@ export const userRegistration = asyncHandler(async (req, res) => {
     const { name, email, password, pic } = req.body;
 
     if (!name || !email || !password) {
-        new ApiError(400, "Please Enter all the Feilds", []);
+        throw new ApiError(400, "Please Enter all the Feilds", []);
     }
 
     const userExists = await User.findOne({
@@ -15,7 +15,7 @@ export const userRegistration = asyncHandler(async (req, res) => {
     });
 
     if (userExists) {
-        new ApiError(409, "User with email or username already exists", []);
+        throw new ApiError(409, "User with email or username already exists", []);
     }
 
     const user = await User.create({
@@ -41,6 +41,6 @@ export const userRegistration = asyncHandler(async (req, res) => {
             )
         );
     } else {
-        new ApiError(400, "User not found", [])
+        throw new ApiError(400, "User not found", [])
     }
 });
