@@ -104,6 +104,7 @@ router.post('/login', userLogin);
  * @swagger
  * /api/user:
  *   get:
+ *      tags: [Users]
  *     parameters:
  *       - in: query
  *         name: search
