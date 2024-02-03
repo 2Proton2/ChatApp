@@ -5,6 +5,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import userRoutes from "./routes/user.route.js";
 import chatRoutes from "./routes/chat.route.js";
+import messageRoutes from "./routes/message.route.js";
 import { errorHandler } from "./middleware/error.middleware.js";
 
 const app = express();
@@ -42,6 +43,7 @@ app.use(cookieParser());
 //routes middleware
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
+app.use("/api/message", messageRoutes);
 
 // common error handling middleware
 app.use(errorHandler);
