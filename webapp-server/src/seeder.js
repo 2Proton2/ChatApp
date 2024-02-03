@@ -35,7 +35,8 @@ try {
                 for(let j=0; j<currObj.users.length; j++){
                     let currUser = currObj.users[j];
                     let userDetails = await User.find({email: currUser.email});
-                    userIdArr.push(new mongoose.Types.ObjectId(JSON.stringify(userDetails._id)));
+                    userDetails = userDetails[0];
+                    userIdArr.push(userDetails._id);
                 }
                 currObj.users = userIdArr;
 
