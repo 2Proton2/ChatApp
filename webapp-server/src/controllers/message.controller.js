@@ -34,7 +34,7 @@ export const sendMessage = asyncHandler(async (req, res) => {
             select: "name pic email",
         });
 
-        fullChatMessage.users.forEach((person) => {
+        fullChatMessage[0].chat.users.forEach((person) => {
             // here the chat is the raw instance of the chat in which participants is the array of object ids of users
             // avoid emitting event to the user who is sending the message
             if(person._id === req.user._id) return
