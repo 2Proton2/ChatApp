@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon ./src/index.js"
+    "dev": "nodemon ./src/index.js",
+    "data:import": "node ./src/seeder.js",
+    "data:destroy": "node ./src/seeder.js -d"
   },
   "keywords": [],
   "author": "",
