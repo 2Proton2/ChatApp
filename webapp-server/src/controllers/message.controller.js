@@ -5,6 +5,8 @@ import { Message } from "../models/message.model.js";
 import { User } from "../models/user.model.js";
 import { Chat } from "../models/chat.model.js";
 import mongoose from "mongoose";
+import { emitSocketEvent } from "../socket/index.js";
+import { ChatEventEnum } from "../constants.js";
 
 export const sendMessage = asyncHandler(async (req, res) => {
     const { chatId } = req.params;
@@ -31,6 +33,14 @@ export const sendMessage = asyncHandler(async (req, res) => {
             path: "chat.users",
             select: "name pic email",
         });
+
+        fullChatMessage.users.forEach((person) => {
+            // here the chat is the raw instance of the chat in which participants is the array of object ids of users
+            // avoid emitting event to the user who is sending the message
+            if(person._id === req.user._id) return
+
+            emitSocketEvent(req, person._id, ChatEventEnum.MESSAGE_RECEIVED_EVENT, fullChatMessage);
+        })
 
         await Chat.findOneAndUpdate({ _id: chatId }, { latestMessage: new mongoose.Types.ObjectId(JSON.stringify(fullChatMessage._id)) });
 
