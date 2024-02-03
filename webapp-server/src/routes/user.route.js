@@ -4,14 +4,13 @@ import { authorization } from "../middleware/auth.middleware.js";
 const router = express.Router();
 
 /**
- * @openapi
+ * @swagger
  * /api/user/login:
  *   post:
  *     summary: Login
  *     tags: [Users]
  *     requestBody:
  *       description: Log user in
- *       required: true
  *       content:
  *         application/json:
  *           schema:
@@ -23,7 +22,6 @@ const router = express.Router();
  *               password:
  *                  type: string
  *                  required: true
- *               
  *     responses:
  *       '200':
  *         description: Successful login
@@ -116,16 +114,11 @@ router.post('/login', userLogin);
  *           type: string
  *           format: email
  *           description: email of the user
- *       - in: headers
- *         name: "Authorization"
- *         schema:
- *           type: string
- *         description: Bearer JWT token
- *     summary: fetch user
  *     security:
- *       - BearerAuth: []  # Reference to the security definition
+ *       - bearerAuth:
+ *           - 'read:users'
+ *           - 'public'
  *     tags: [Users]
- *
  *     requestBody:
  *       description: fetch all the user or mentioned in the query of the URL
  *     responses:
@@ -149,6 +142,14 @@ router.post('/login', userLogin);
  *         description: Bad request
  *       '500':
  *         description: Internal server error
+ * 
+ * components:
+ *       securitySchemes:
+ *           bearerAuth:
+ *               type: http
+ *               scheme: bearer
+ *               bearerFormat: jwt
+ *               description: 'note: non-oauth scopes are not defined at the securityScheme level'
  */
 router.route('/').post(userRegistration).get(authorization, fetchSearchedUser);
 
