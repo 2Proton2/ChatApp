@@ -8,6 +8,7 @@ import chatRoutes from "./routes/chat.route.js";
 import messageRoutes from "./routes/message.route.js";
 import { errorHandler } from "./middleware/error.middleware.js";
 import { initializeSocketIO } from "./socket/index.js";
+import { setUpSwaggerConfig } from "./config/swagger.config.js";
 
 const app = express();
 const httpServer = createServer(app);
@@ -45,6 +46,7 @@ app.use(cookieParser());
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/message", messageRoutes);
+setUpSwaggerConfig(app, process.env.PORT)
 
 //
 initializeSocketIO(io);
