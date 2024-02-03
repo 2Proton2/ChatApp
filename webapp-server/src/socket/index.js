@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { Server, Socket } from "socket.io";
 import { AvailableChatEvents, ChatEventEnum } from "../constants.js";
-import { User } from "../models/apps/auth/user.models.js";
+import { User } from "../models/apps/auth/user.model.js";
 import { ApiError } from "../utils/ApiError.js";
 
 const mountJoinChatEvent = (socket) => {
