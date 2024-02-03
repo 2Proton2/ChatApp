@@ -13,7 +13,7 @@ const httpServer = createServer(app);
 
 //creating the instance of the socket
 const io = new Server(httpServer, {
-    pingTimeout: 60000, //this is inorder to use the optimum bandwidth ... it will close automatically if new events are triggered for specified duration
+    pingTimeout: 60000, //this is inorder to use the optimum bandwidth ... it will close automatically if no events are triggered for specified duration
     cors: {
         origin: process.env.CORS_ORIGIN,
         credentials: true,
