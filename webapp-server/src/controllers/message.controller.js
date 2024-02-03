@@ -32,7 +32,7 @@ export const sendMessage = asyncHandler(async (req, res) => {
             select: "name pic email",
         });
 
-        await Chat.findOneAndUpdate({ _id: chatId }, { latestMessage: fullChatMessage._id });
+        await Chat.findOneAndUpdate({ _id: chatId }, { latestMessage: new mongoose.Types.ObjectId(JSON.stringify(fullChatMessage._id)) });
 
         res.status(201).json(new ApiResponse(201, fullChatMessage, "Message Received"));
     } catch (error) {
