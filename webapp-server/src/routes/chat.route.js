@@ -14,7 +14,7 @@ import { accessAndCreateChat, fetchAllChats } from "../controllers/chat.controll
  *           - 'public'
  *     tags: [Chat]
  *     requestBody:
- *       description: fetch all the user or mentioned in the query of the URL
+ *       description: Access the chat if it created. If not then create a new chat
  *       content:
  *         application/json:
  *          schema:
@@ -25,7 +25,7 @@ import { accessAndCreateChat, fetchAllChats } from "../controllers/chat.controll
  *                  required: true
  *     responses:
  *       '200':
- *         description: Successful login
+ *         description: Successfully accessed/created chat
  *         content:
  *           application/json:
  *             schema:
@@ -67,10 +67,10 @@ import { accessAndCreateChat, fetchAllChats } from "../controllers/chat.controll
  *           - 'public'
  *     tags: [Chat]
  *     requestBody:
- *       description: fetch all the user or mentioned in the query of the URL
+ *       description: fetch all the chats that are being created for a logged in user
  *     responses:
  *       '200':
- *         description: Successful login
+ *         description: Successfully fetched the chats
  *         content:
  *           application/json:
  *             schema:

@@ -20,10 +20,10 @@ import { getAllMessagesForChat, sendMessage } from "../controllers/message.contr
  *           description: ChatId from the url params
  *     tags: [Messages]
  *     requestBody:
- *       description: fetch all the user or mentioned in the query of the URL
+ *       description: fetch all the messages for the mentioned chatId in the url
  *     responses:
  *       '200':
- *         description: Successful login
+ *         description: Successfully fetched messages
  *         content:
  *           application/json:
  *             schema:
@@ -70,7 +70,7 @@ import { getAllMessagesForChat, sendMessage } from "../controllers/message.contr
  *           description: ChatId from the url params
  *     tags: [Messages]
  *     requestBody:
- *       description: fetch all the user or mentioned in the query of the URL
+ *       description: Send a new message on mentioned chatId
  *       content:
  *         application/json:
  *          schema:
@@ -81,7 +81,7 @@ import { getAllMessagesForChat, sendMessage } from "../controllers/message.contr
  *                  required: true
  *     responses:
  *       '200':
- *         description: Successful login
+ *         description: Message sent successfully
  *         content:
  *           application/json:
  *             schema:
