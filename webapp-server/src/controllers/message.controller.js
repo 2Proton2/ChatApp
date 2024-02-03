@@ -40,4 +40,15 @@ export const sendMessage = asyncHandler(async (req, res) => {
     }
 });
 
-export const getAllMessagesForChat = asyncHandler();
+export const getAllMessagesForChat = asyncHandler(async (req, res) => {
+    const { chatId } = req.params;
+
+    const allChatMessages = await Message.find({
+        chat: chatId
+    })
+    .populate("sender", "-password")
+    .populate("chat");
+
+    res.status(200).json(new ApiResponse(200, allChatMessages, "Fetched all chat messages"));
+
+});
