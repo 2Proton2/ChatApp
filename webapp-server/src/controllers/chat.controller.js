@@ -3,6 +3,8 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { Chat } from "../models/chat.model.js";
 import { User } from "../models/user.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
+import { emitSocketEvent } from "../socket/index.js";
+import { ChatEventEnum } from "../constants.js";
 
 export const accessAndCreateChat = asyncHandler(async (req, res) => {
     const { userId } = req.body; //frontend will send id which user is being selected for chatting
@@ -44,6 +46,13 @@ export const accessAndCreateChat = asyncHandler(async (req, res) => {
         try {
             const newChatInstance = await Chat.create(newChat);
             const fullChat = await Chat.findOne({ _id: newChat._id }).populate("users", "-password");
+
+            fullChat.users.forEach((person) => {
+                if(req.user._id === person._id) return
+
+                emitSocketEvent(req, person._id, ChatEventEnum.NEW_CHAT_EVENT, fullChat);
+            })
+
             res.status(201).json(new ApiResponse(201, fullChat, "New Chat Created"));
         } catch (error) {
             throw new ApiError(400, error?.message, []);
